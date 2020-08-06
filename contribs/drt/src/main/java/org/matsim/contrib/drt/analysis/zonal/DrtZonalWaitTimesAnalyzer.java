@@ -20,18 +20,6 @@
 
 package org.matsim.contrib.drt.analysis.zonal;
 
-import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
-import org.matsim.api.core.v01.Id;
-import org.matsim.contrib.drt.analysis.DrtRequestAnalyzer;
-import org.matsim.contrib.drt.passenger.events.DrtRequestSubmittedEvent;
-import org.matsim.contrib.drt.passenger.events.DrtRequestSubmittedEventHandler;
-import org.matsim.contrib.drt.run.DrtConfigGroup;
-import org.matsim.contrib.dvrp.optimizer.Request;
-import org.matsim.core.api.experimental.events.EventsManager;
-import org.matsim.core.controler.events.IterationEndsEvent;
-import org.matsim.core.controler.listener.IterationEndsListener;
-import org.matsim.core.utils.io.IOUtils;
-
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
@@ -40,6 +28,17 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+import org.matsim.api.core.v01.Id;
+import org.matsim.contrib.drt.analysis.DrtRequestAnalyzer;
+import org.matsim.contrib.drt.passenger.events.DrtRequestSubmittedEvent;
+import org.matsim.contrib.drt.passenger.events.DrtRequestSubmittedEventHandler;
+import org.matsim.contrib.drt.run.DrtConfigGroup;
+import org.matsim.contrib.dvrp.optimizer.Request;
+import org.matsim.core.controler.events.IterationEndsEvent;
+import org.matsim.core.controler.listener.IterationEndsListener;
+import org.matsim.core.utils.io.IOUtils;
+
 public class DrtZonalWaitTimesAnalyzer implements IterationEndsListener, DrtRequestSubmittedEventHandler {
 
 	private final DrtConfigGroup drtCfg;
@@ -47,8 +46,8 @@ public class DrtZonalWaitTimesAnalyzer implements IterationEndsListener, DrtRequ
 	private final DrtZonalSystem zones;
 	private Map<Id<Request>, DrtRequestSubmittedEvent> submittedRequests = new HashMap<>();
 
-	public DrtZonalWaitTimesAnalyzer(DrtConfigGroup configGroup, EventsManager eventsManager, DrtRequestAnalyzer requestAnalyzer, DrtZonalSystem zones){
-		eventsManager.addHandler(this);
+	public DrtZonalWaitTimesAnalyzer(DrtConfigGroup configGroup, DrtRequestAnalyzer requestAnalyzer,
+			DrtZonalSystem zones) {
 		this.drtCfg = configGroup;
 		this.requestAnalyzer = requestAnalyzer;
 		this.zones = zones;
